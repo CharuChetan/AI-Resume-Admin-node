@@ -22,4 +22,4 @@ sequelize
     console.error("Unable to connect to the database:", err); // eslint-disable-line no-console
   });
 
-module.exports = { sequelize };
+module.exports = sequelize;

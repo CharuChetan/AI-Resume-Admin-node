@@ -1,39 +1,38 @@
-const { DataTypes } = require("sequelize");
-const { sequelize } = require("../config/db");
+module.exports = (sequelize, DataTypes) => {
+  const UserResumeCmp = sequelize.define(
+    "UserResumeCmp",
+    {
+      id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      component_type: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      field: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      order: {
+        type: DataTypes.DOUBLE.UNSIGNED,
+        allowNull: true,
+      },
+      userResumeId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        references: {
+          model: "UserResume",
+          key: "id",
+        },
+      },
+    },
+    {
+      timestamps: false,
+      freezeTableName: true,
+    }
+  );
 
-const UserResumeCmp = sequelize.define(
-  "user_resumes_cmps",
-  {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    entity_id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true,
-    },
-    cmp_id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true,
-    },
-    component_type: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    field: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    order: {
-      type: DataTypes.DOUBLE.UNSIGNED,
-      allowNull: true,
-    },
-  },
-  {
-    timestamps: false,
-    freezeTableName: true,
-  }
-);
-
-module.exports = UserResumeCmp;
+  return UserResumeCmp;
+};

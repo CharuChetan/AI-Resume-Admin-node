@@ -1,5 +1,4 @@
-const UserQuery = require("../models/userQuery");
-
+const { UserQuery } = require("../models/index");
 class UserQueryController {
   constructor() {
     this.userQueryModel = UserQuery;

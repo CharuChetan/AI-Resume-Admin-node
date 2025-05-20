@@ -1,5 +1,5 @@
-import User from "../models/user.js";
-
+//import User from "../models/user.js";
+const { User } = require("../models/index");
 class UserController {
   constructor() {
     this.userModel = User;
@@ -68,4 +68,4 @@ class UserController {
   }
 }
 
-export default UserController;
+module.exports = UserController;

@@ -1,4 +1,4 @@
-import UserResume from "../models/userResume.js";
+const { UserResume } = require("../models/index");
 
 class UserResumeController {
   constructor() {
@@ -26,24 +26,17 @@ class UserResumeController {
     }
   }
 
-  async getAllResumes(req, res) {
-    try {
-      const resumes = await UserResume.findAll();
-      res.status(200).json({ resumes });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  }
-
   async updateResume(req, res) {
     try {
       const [updated] = await UserResume.update(req.body, {
-        where: { id: req.params.id },
+        where: { resumeId: req.params.id },
       });
       if (!updated) {
         return res.status(404).json({ error: "Resume not found" });
       }
-      const updatedResume = await this.userResumeModel.findByPk(req.params.id);
+      const updatedResume = await this.userResumeModel.findOne({
+        where: { resumeId: req.params.id },
+      });
       res.status(200).json({ resume: updatedResume });
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -53,7 +46,7 @@ class UserResumeController {
   async deleteResume(req, res) {
     try {
       const deleted = await UserResume.destroy({
-        where: { id: req.params.id },
+        where: { resumeId: req.params.id },
       });
       if (!deleted) {
         return res.status(404).json({ error: "Resume not found" });
@@ -65,4 +58,4 @@ class UserResumeController {
   }
 }
 
-export default UserResumeController;
+module.exports = UserResumeController;

@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/userRoutes").default;
 const mysql = require("mysql2/promise");
 const cors = require("cors");
+const db = require("./models");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,6 +32,16 @@ mysql
       return;
     }
     console.log("Connected to the database.");
+  });
+
+db.sequelize
+  .sync({ alter: true }) // or{ alter: true }// { force: true } to recreate tables every run
+  .then(() => {
+    console.log("✅ Database synced successfully");
+    // Your app logic starts here
+  })
+  .catch((err) => {
+    console.error("❌ Sync failed:", err);
   });
 
 app.use(bodyParser.json());
