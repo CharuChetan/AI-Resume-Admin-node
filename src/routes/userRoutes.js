@@ -10,6 +10,10 @@ import UserResumeController from "../controllers/userResumeController.js";
 const router = express.Router();
 const userResumeRelationsController = new UserResumeRelationsController();
 //UserResumeRelationsController routes
+router.get("/user-resumes/auth/:email", (req, res) =>
+  userResumeRelationsController.getAuthToken(req, res)
+);
+
 router.get("/user-resumes/email/:email", auth, (req, res) =>
   userResumeRelationsController.getAllResume(req, res)
 );
@@ -23,7 +27,6 @@ router.get("/user-resumes/:id", auth, (req, res) =>
   userResumeController.getResume(req, res)
 );
 router.post("/user-resumes", auth, (req, res) => {
-  //console.log(req.body);
   userResumeController.createResume(req, res);
 });
 router.put("/user-resumes/:id", auth, (req, res) =>

@@ -6,7 +6,21 @@ const {
   UserResumeCmp,
 } = require("../models/index");
 
+const { generateToken } = require("../utils/jwt");
+
 class UserResumeRelationsController {
+  async getAuthToken(req, res) {
+    try {
+      const user = {
+        id: req.params.email,
+      };
+      const getToken = generateToken(user);
+
+      res.status(200).json({ getToken });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
   // Get all user resumes with all related data
   async getAllResume(req, res) {
     try {

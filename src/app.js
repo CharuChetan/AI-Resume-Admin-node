@@ -20,10 +20,10 @@ app.use(cors(corsOptions));
 
 mysql
   .createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Alliswell@1234",
-    database: "ai_builder_admin",
+    host: process.env.ADMIN_DATABASE_HOST,
+    user: process.env.ADMIN_DATABASE_USER,
+    password: process.env.ADMIN_DATABASE_PASSWORD,
+    database: process.env.ADMIN_DATABASE_NAME,
   })
   .then((res) => console.log("Database connection success"))
   .catch((err) => {
