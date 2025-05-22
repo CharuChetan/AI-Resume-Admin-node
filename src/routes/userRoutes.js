@@ -1,11 +1,11 @@
-import express from "express";
-import UserResumeRelationsController from "../controllers/userResumeRelationsController.js";
-import auth from "../middleware/auth.js";
-import SkillsController from "../controllers/skillsController.js";
-import EducationController from "../controllers/educationController.js";
-import ExperienceController from "../controllers/experienceController.js";
-import UserResumeCmpController from "../controllers/userResumeCmpController.js";
-import UserResumeController from "../controllers/userResumeController.js";
+const express = require("express");
+const UserResumeRelationsController = require("../controllers/userResumeRelationsController.js");
+const auth = require("../middleware/auth.js");
+const SkillsController = require("../controllers/skillsController.js");
+const EducationController = require("../controllers/educationController.js");
+const ExperienceController = require("../controllers/experienceController.js");
+const UserResumeCmpController = require("../controllers/userResumeCmpController.js");
+const UserResumeController = require("../controllers/userResumeController.js");
 
 const router = express.Router();
 const userResumeRelationsController = new UserResumeRelationsController();
@@ -86,4 +86,5 @@ router.put("/userResumeCmps/:id", auth, (req, res) =>
 router.delete("/userResumeCmps/:id", auth, (req, res) =>
   userResumeCmpController.deleteUserResumeCmp(req, res)
 );
-export default router;
+
+module.exports = router;

@@ -1,15 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const userRoutes = require("./routes/userRoutes").default;
+const userRoutes = require("./routes/userRoutes.js");
 const mysql = require("mysql2/promise");
 const cors = require("cors");
 const db = require("./models");
+const serverless = require("serverless-http");
+require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+//const PORT = process.env.PORT;
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "http://localhost:5173"], // Allowed origins
+  origin: ["*"], // Allowed origins
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed methods
   credentials: true, // Allow cookies and authorization headers
   allowedHeaders: "Content-Type,Authorization",
@@ -47,6 +49,8 @@ db.sequelize
 app.use(bodyParser.json());
 app.use("/api", userRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+
+module.exports.handler = serverless(app);

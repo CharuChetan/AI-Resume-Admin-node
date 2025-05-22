@@ -1,17 +1,23 @@
 const Sequelize = require("sequelize");
+require("dotenv").config();
 
-const sequelize = new Sequelize("ai_builder_admin", "root", "Alliswell@1234", {
-  host: "localhost",
-  dialect: "mysql",
-  operatorsAliases: false,
+const sequelize = new Sequelize(
+  process.env.ADMIN_DATABASE_NAME,
+  process.env.ADMIN_DATABASE_USER,
+  process.env.ADMIN_DATABASE_PASSWORD,
+  {
+    host: process.env.ADMIN_DATABASE_HOST,
+    dialect: "mysql",
+    operatorsAliases: false,
 
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
-});
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+  }
+);
 
 sequelize
   .authenticate()
